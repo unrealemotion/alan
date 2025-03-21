@@ -35,6 +35,7 @@ By capturing MPIO and MSDSM trace, along with kernel dump, stale TPGs ID 13e8 an
     These errors definitively show that the Microsoft DSM (MSDSM) *failed to claim the device*, even though MPIO presented it.  The `c000000e` status code is a generic "NTSTATUS" value indicating a device hardware error, which, in this context, is a *consequence* of the DSM not claiming the device, not the root cause.
 *   **VPD Page 83 Data:** The VPD (Vital Product Data) page 83 data returned by the NetApp storage array was examined. This data, which provides device identification information, was found to contain *stale* Target Port Group (TPG) identifiers: `13e8` and `13e9`. These identifiers were *not* valid at the time of the reboot (and were not part of the original, working two-TPG configuration).
 *    **!scsikd.scsiinquiry Output (Harddisk1 - Relevant Snippet):**
+
     ```
      000: 00 83 00 70  02 01 00 20  4e 45 54 41  50 50 20 20 | ...p ... NETA PP
      010: 20 4c 55 4e  20 77 4f 6a  34 5a 3f 56  6b 7a 44 37 |  LUN  wOj 4Z?V kzD7
@@ -46,7 +47,7 @@ By capturing MPIO and MSDSM trace, along with kernel dump, stale TPGs ID 13e8 an
      070: 00 00 13 e8                                        | ....
     ```
 
-    **!scsikd.scsiinquiry Output (Harddisk3 - Relevant Snippet):**
+*    **!scsikd.scsiinquiry Output (Harddisk3 - Relevant Snippet):**
 
     ```
      000: 00 83 00 70  02 01 00 20  4e 45 54 41  50 50 20 20 | ...p ... NETA PP
